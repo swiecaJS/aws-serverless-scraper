@@ -1,0 +1,11 @@
+{
+  "name": "wp-ver-scrape",
+  "version": "0.0.1",
+  "main": "handler.js",
+  "author": "khazarr",
+  "dependencies": {
+    "express": "latest",
+    "axios": "latest",
+    "cheerio": "latest"
+  }
+}
