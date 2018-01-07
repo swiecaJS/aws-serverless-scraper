@@ -4,8 +4,11 @@
   "main": "handler.js",
   "author": "khazarr",
   "dependencies": {
-    "express": "latest",
+    "aws-sdk": "^2.177.0",
     "axios": "latest",
-    "cheerio": "latest"
+    "cheerio": "latest",
+    "express": "latest",
+    "loadash": "^1.0.0",
+    "nexmo": "^2.1.1"
   }
 }

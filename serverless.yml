@@ -55,9 +55,48 @@ provider:
 #    - exclude-me-dir/**
 
 functions:
-  hello:
-    handler: handler.hello
+  scrape:
+    handler: handler.scrape
 
+
+resources:
+  Resources:
+    wpVer:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: wpVer
+        AttributeDefinitions:
+          - AttributeName: listingId
+            AttributeType: S
+        KeySchema:
+          - AttributeName: listingId
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+
+    # A policy is a resource that states one or more permssions. It lists actions, resources and effects.
+
+    DynamoDBIamPolicy:
+      Type: AWS::IAM::Policy
+      DependsOn: wpVer
+      Properties:
+        PolicyName: lambda-dynamodb
+        PolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Action:
+                - dynamodb:DescribeTable
+                - dynamodb:Query
+                - dynamodb:Scan
+                - dynamodb:GetItem
+                - dynamodb:PutItem
+                - dynamodb:UpdateItem
+                - dynamodb:DeleteItem
+              Resource: arn:aws:dynamodb:*:*:table/wpVer
+        Roles:
+          - Ref: IamRoleLambdaExecution
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details
